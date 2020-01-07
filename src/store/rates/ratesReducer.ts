@@ -1,11 +1,11 @@
-import { RatesActionTypes, UpdateRatesAction } from './ratesActions';
+import { RatesActionTypes, RatesAction } from './ratesActions';
 
 export interface RatesState {
   [rate: string]: number;
 }
 
-const ratesReducer = (state: RatesState = {}, action: UpdateRatesAction) => {
-  if (action.type === RatesActionTypes.UPDATE_RATES) {
+const ratesReducer = (state: RatesState = {}, action: RatesAction) => {
+  if (action.type === RatesActionTypes.SET_RATES) {
     console.log(state, action);
     return {
       ...state,

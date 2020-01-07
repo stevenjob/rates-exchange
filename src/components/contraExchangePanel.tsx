@@ -29,10 +29,11 @@ function ContraExchangePanel(props: ContraExchangePanelProps) {
     selectedCurrency,
     symbol,
     balance,
-    onAmountChange: (value: number) => {
-      dispatch(exchangeActions.onContraAmountChange(value));
-    },
-    onCurrencySelected: () => console.log('onCurrencySelected'),
+    onAmountChange: (value: number) =>
+      dispatch(exchangeActions.onContraAmountChange(value)),
+    onAmountFocus: () => dispatch(exchangeActions.setContraFixed()),
+    onCurrencySelected: (currency: string) =>
+      dispatch(exchangeActions.onContraCurrencyChange(currency)),
     onBalanceClick: () => console.log('onBalanceClick')
   };
 

@@ -2,10 +2,9 @@ import * as React from 'react';
 import Balance from './balance';
 import AmountInput from './amountInput';
 import CurrencySelector from './currencySelector';
-import { useSelector } from 'react-redux';
-import * as exchangeSelectors from '../store/exchange/exchangeSelectors';
-import StoreState from '../store/storeState';
-import { prependOnceListener } from 'cluster';
+import { Row, Col } from 'reactstrap';
+import { InputGroup, InputGroupAddon } from 'reactstrap';
+import styled from 'styled-components';
 
 export interface ExchangePanelProps {
   currencies: string[];
@@ -15,9 +14,15 @@ export interface ExchangePanelProps {
   symbol: string;
   balance: number;
   onAmountChange: (value: number) => void;
+  onAmountFocus: (value: number) => void;
   onCurrencySelected: (currencyName: string) => void;
   onBalanceClick: () => void;
 }
+
+const PanelContainer = styled.div`
+  margin-bottom: 50px;
+  margin-top: 50px;
+`;
 
 function ExchangePanel(props: ExchangePanelProps) {
   const {
@@ -28,27 +33,42 @@ function ExchangePanel(props: ExchangePanelProps) {
     balance,
     currencies,
     onAmountChange,
+    onAmountFocus,
     onCurrencySelected,
     onBalanceClick
   } = props;
 
   return (
-    <div>
-      <div>
-        <CurrencySelector
-          value={selectedCurrency}
-          options={currencies}
-          onChange={onCurrencySelected}
-        />
-        <Balance
-          onClick={onBalanceClick}
-          shouldHighlight={shouldHighlightBalance}
-          balance={balance}
-          symbol={symbol}
-        />
-      </div>
-      <AmountInput value={amount} onChange={onAmountChange} />
-    </div>
+    <PanelContainer>
+      <Row>
+        <Col>
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <CurrencySelector
+                value={selectedCurrency}
+                options={currencies}
+                onChange={onCurrencySelected}
+              />
+            </InputGroupAddon>
+            <AmountInput
+              value={amount}
+              onChange={onAmountChange}
+              onFocus={onAmountFocus}
+            />
+          </InputGroup>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Balance
+            onClick={onBalanceClick}
+            shouldHighlight={shouldHighlightBalance}
+            balance={balance}
+            symbol={symbol}
+          />
+        </Col>
+      </Row>
+    </PanelContainer>
   );
 }
 

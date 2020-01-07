@@ -8,7 +8,9 @@ import * as ratesSelectors from '../rates/ratesSelectors';
 export enum ExchangeActionTypes {
   SET_CURRENCY_PAIR = 'SET_CURRENCY_PAIR',
   SET_BASE_AMOUNT = 'SET_BASE_AMOUNT',
-  SET_CONTRA_AMOUNT = 'SET_CONTRA_AMOUNT'
+  SET_CONTRA_AMOUNT = 'SET_CONTRA_AMOUNT',
+  SET_BASE_FIXED = 'SET_BASE_FIXED',
+  SET_CONTRA_FIXED = 'SET_CONTRA_FIXED'
 }
 
 export interface SetCurrencyPairAction {
@@ -23,24 +25,44 @@ const setCurrencyPair = (currencyPair: string) => ({
   currencyPair
 });
 
-export const onBaseCurrencyChange = (baseCurrency: string) => {
-  // if contra currency is the base currency that has been selected then
-  // make the previous base currency the contra
-  // fix the base currency
-  // clear the contra rate
-  // change currency pair
+export const onBaseCurrencyChange = (newBaseCurrency: string) => (
+  dispatch: any,
+  getState: any
+) => {
+  const state = getState();
+  const contraCurrency = selectors.getContraCurrency(state);
+
+  dispatch(setBaseFixed());
+  dispatch(recalculateNonFixedAmount());
+
+  let newContraCurrency = contraCurrency;
+  if (contraCurrency === newBaseCurrency) {
+    newContraCurrency = selectors.getBaseCurrency(state);
+  }
+
+  dispatch(changeCurrencyPair(`${newBaseCurrency}${newContraCurrency}`));
 };
 
-export const onContraCurrencyChange = (contraCurrency: string) => {
-  // if base currency is the contra currency that has been selected then
-  // make the previous contra currency the base
-  // fix the contra currency
-  // clear the base rate
-  // change currency pair
+export const onContraCurrencyChange = (newContraCurrency: string) => (
+  dispatch: any,
+  getState: any
+) => {
+  const state = getState();
+  const baseCurrency = selectors.getBaseCurrency(state);
+
+  dispatch(setContraFixed());
+  dispatch(recalculateNonFixedAmount());
+
+  let newBaseCurrency = baseCurrency;
+  if (baseCurrency === newContraCurrency) {
+    newBaseCurrency = selectors.getContraCurrency(state);
+  }
+
+  dispatch(changeCurrencyPair(`${newBaseCurrency}${newContraCurrency}`));
 };
 
 export const changeCurrencyPair = (newCurrencyPair: string) => (
-  dispatch: Dispatch,
+  dispatch: any,
   getState: any
 ) => {
   const state: StoreState = getState();
@@ -51,7 +73,7 @@ export const changeCurrencyPair = (newCurrencyPair: string) => (
   dispatch(setCurrencyPair(newCurrencyPair));
 };
 
-export const changeContraCurrency = (contra: string) => (
+const changeContraCurrency = (contra: string) => (
   dispatch: Dispatch,
   getState: any
 ) => {
@@ -61,7 +83,7 @@ export const changeContraCurrency = (contra: string) => (
   changeCurrencyPair(newCurrencyPair)(dispatch, getState);
 };
 
-export const changeBaseCurrency = (base: string) => (
+const changeBaseCurrency = (base: string) => (
   dispatch: Dispatch,
   getState: any
 ) => {
@@ -71,7 +93,10 @@ export const changeBaseCurrency = (base: string) => (
   changeCurrencyPair(newCurrencyPair)(dispatch, getState);
 };
 
-const recalculateNonFixedAmount = () => (dispatch: Dispatch, getState: any) => {
+export const recalculateNonFixedAmount = () => (
+  dispatch: Dispatch,
+  getState: any
+) => {
   const state: StoreState = getState();
   const isBaseFixed = selectors.isBaseFixed(state);
 
@@ -115,9 +140,9 @@ const setContraAmount = (amount: number) => ({
 });
 
 export const setBaseFixed = () => ({
-  type: 'SET_BASE_FIXED'
+  type: ExchangeActionTypes.SET_BASE_FIXED
 });
 
 export const setContraFixed = () => ({
-  type: 'SET_CONTRA_FIXED'
+  type: ExchangeActionTypes.SET_CONTRA_FIXED
 });

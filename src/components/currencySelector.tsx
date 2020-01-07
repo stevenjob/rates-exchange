@@ -1,4 +1,11 @@
 import * as React from 'react';
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
+
 export interface CurrencySelectorProps {
   value: string;
   options: string[];
@@ -6,13 +13,23 @@ export interface CurrencySelectorProps {
 }
 
 function CurrencySelector(props: CurrencySelectorProps) {
-  // prop should be isBase?
+  const { options, value, onChange } = props;
 
-  //   const selectedCurrency; // currently selected currency;
-  //   const currencies; // all currencies avalable apart from the other currency
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
-  // use dropdown component
-  return <div>{props.value}</div>;
+  const toggle = () => setDropdownOpen(prevState => !prevState);
+
+  return (
+    <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+      <DropdownToggle caret>{value}</DropdownToggle>
+      <DropdownMenu>
+        <DropdownItem header>Choose Source</DropdownItem>
+        {options.map(option => (
+          <DropdownItem onClick={() => onChange(option)}>{option}</DropdownItem>
+        ))}
+      </DropdownMenu>
+    </Dropdown>
+  );
 }
 
 export default CurrencySelector;

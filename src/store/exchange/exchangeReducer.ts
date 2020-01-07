@@ -35,6 +35,18 @@ const exchangeReducer = (
         contraAmount: action.amount
       };
     }
+    case ExchangeActionTypes.SET_BASE_FIXED: {
+      return {
+        ...state,
+        isBaseFixed: true
+      };
+    }
+    case ExchangeActionTypes.SET_CONTRA_FIXED: {
+      return {
+        ...state,
+        isBaseFixed: false
+      };
+    }
     default:
       return state;
   }

@@ -5,24 +5,35 @@ import BaseExchangePanel from './baseExchangePanel';
 import ContraExchangePanel from './contraExchangePanel';
 import { useSelector } from 'react-redux';
 import * as currenciesSelectors from '../store/currencies/currenciesSelectors';
+import { Container, Row, Col } from 'reactstrap';
+import styled from 'styled-components';
 
 export interface ExchangeProps {}
+
+const PaddedContainer = styled.div`
+  margin: auto;
+  max-width: 500px;
+`;
 
 function Exchange(props: ExchangeProps) {
   const currencies = useSelector(currenciesSelectors.getCurrenices);
 
   return (
-    <div>
-      <header>Exchange</header>
-      <section>
+    <PaddedContainer>
+      <Container fluid="sm">
+        <header>Exchange</header>
         <BaseExchangePanel currencies={currencies} />
-        <div>
-          <SwitchCurrencies onClick={() => console.log('clicked')} />
-          <ExchangeRate />
-        </div>
+        <Row>
+          <Col>
+            <SwitchCurrencies onClick={() => console.log('clicked')} />
+          </Col>
+          <Col>
+            <ExchangeRate />
+          </Col>
+        </Row>
         <ContraExchangePanel currencies={currencies} />
-      </section>
-    </div>
+      </Container>
+    </PaddedContainer>
   );
 }
 

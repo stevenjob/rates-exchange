@@ -34,10 +34,11 @@ function BaseExchangePanel(props: BaseExchangePanelProps) {
     shouldHighlightBalance,
     symbol,
     balance,
-    onAmountChange: (value: number) => {
-      dispatch(exchangeActions.onBaseAmountChange(value));
-    },
-    onCurrencySelected: () => console.log('onCurrencySelected'),
+    onAmountChange: (value: number) =>
+      dispatch(exchangeActions.onBaseAmountChange(value)),
+    onAmountFocus: () => dispatch(exchangeActions.setBaseFixed()),
+    onCurrencySelected: (currency: string) =>
+      dispatch(exchangeActions.onBaseCurrencyChange(currency)),
     onBalanceClick: () => console.log('onBalanceClick')
   };
 

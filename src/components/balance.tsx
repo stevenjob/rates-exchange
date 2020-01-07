@@ -10,7 +10,7 @@ function Balance(props: BalanceProps) {
   const { symbol, balance } = props;
   return (
     <div>
-      balance: {symbol}
+      Balance: {symbol}
       {balance}
     </div>
   );
