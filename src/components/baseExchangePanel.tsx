@@ -39,7 +39,7 @@ function BaseExchangePanel(props: BaseExchangePanelProps) {
     onAmountFocus: () => dispatch(exchangeActions.setBaseFixed()),
     onCurrencySelected: (currency: string) =>
       dispatch(exchangeActions.onBaseCurrencyChange(currency)),
-    onBalanceClick: () => console.log('onBalanceClick')
+    onBalanceClick: () => dispatch(exchangeActions.onBaseAmountChange(balance))
   };
 
   return <ExchangePanel {...panelProps} />;

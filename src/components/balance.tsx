@@ -7,9 +7,9 @@ export interface BalanceProps {
 }
 
 function Balance(props: BalanceProps) {
-  const { symbol, balance } = props;
+  const { symbol, balance, onClick } = props;
   return (
-    <div>
+    <div onClick={onClick}>
       Balance: {symbol}
       {balance}
     </div>

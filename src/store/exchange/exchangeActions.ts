@@ -118,6 +118,7 @@ export const recalculateNonFixedAmount = () => (
 export const onBaseAmountChange = (newBaseAmount: number) => (
   dispatch: any
 ) => {
+  dispatch(setBaseFixed());
   dispatch(setBaseAmount(newBaseAmount));
   dispatch(recalculateNonFixedAmount());
 };
@@ -125,6 +126,7 @@ export const onBaseAmountChange = (newBaseAmount: number) => (
 export const onContraAmountChange = (newContraAmount: number) => (
   dispatch: any
 ) => {
+  dispatch(setContraFixed());
   dispatch(setContraAmount(newContraAmount));
   dispatch(recalculateNonFixedAmount());
 };

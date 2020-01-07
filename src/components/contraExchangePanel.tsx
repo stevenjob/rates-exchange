@@ -34,7 +34,8 @@ function ContraExchangePanel(props: ContraExchangePanelProps) {
     onAmountFocus: () => dispatch(exchangeActions.setContraFixed()),
     onCurrencySelected: (currency: string) =>
       dispatch(exchangeActions.onContraCurrencyChange(currency)),
-    onBalanceClick: () => console.log('onBalanceClick')
+    onBalanceClick: () =>
+      dispatch(exchangeActions.onContraAmountChange(balance))
   };
 
   return <ExchangePanel {...panelProps} />;
