@@ -4,6 +4,8 @@ import StoreState from '../storeState';
 import { Dispatch } from 'redux';
 import * as selectors from './exchangeSelectors';
 import * as ratesSelectors from '../rates/ratesSelectors';
+import * as accountBalancesSelectors from '../accountBalances/accountBalancesSelectors';
+import * as accountBalancesActions from '../accountBalances/accountBalancesActions';
 
 export enum ExchangeActionTypes {
   SET_CURRENCY_PAIR = 'SET_CURRENCY_PAIR',
@@ -164,4 +166,42 @@ export const onSwitchCurrencies = () => (dispatch: any, getState: any) => {
   const contraCurrency = selectors.getContraCurrency(state);
   const reverseCurrencyPair = `${contraCurrency}${baseCurrency}`;
   dispatch(changeCurrencyPair(reverseCurrencyPair));
+};
+
+export const onExchangeButtonPress = () => (dispatch: any, getState: any) => {
+  console.log('hello');
+  const state = getState();
+  const isExchangeEnabled = selectors.isExchangeEnabled(state);
+
+  if (!isExchangeEnabled) {
+    return;
+  }
+
+  const baseAmount = selectors.getBaseAmount(state);
+  const baseCurrency = selectors.getBaseCurrency(state);
+  const contraAmount = selectors.getContraAmount(state);
+  const contraCurrency = selectors.getContraCurrency(state);
+
+  const newBaseAccountBalance =
+    accountBalancesSelectors.getBalance(state, baseCurrency) - baseAmount;
+  const newContraAccountBalance =
+    accountBalancesSelectors.getBalance(state, contraCurrency) + contraAmount;
+
+  // dispatch() go to confirmation
+
+  dispatch(
+    accountBalancesActions.setAccountBalanceForCurrency(
+      baseCurrency,
+      newBaseAccountBalance
+    )
+  );
+
+  dispatch(
+    accountBalancesActions.setAccountBalanceForCurrency(
+      contraCurrency,
+      newContraAccountBalance
+    )
+  );
+
+  // set amount to 0
 };

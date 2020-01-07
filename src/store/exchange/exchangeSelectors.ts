@@ -32,14 +32,11 @@ export const isBaseAmountValid = (state: StoreState): boolean => {
   const amount = getBaseAmount(state);
   const baseCurrency = getBaseCurrency(state);
   const balance = accountBalancesSelectors.getBalance(state, baseCurrency);
-  return balance > amount;
+  return balance >= amount;
 };
 
-export const isContraAmountValid = (state: StoreState): boolean => {
-  const amount = getContraAmount(state);
-  const currency = getContraCurrency(state);
-  const balance = accountBalancesSelectors.getBalance(state, currency);
-  return balance > amount;
+export const isExchangeEnabled = (state: StoreState): boolean => {
+  return isBaseAmountValid(state) && getBaseAmount(state) !== 0;
 };
 
 export const getBaseCurrencySymbol = (state: StoreState): string => {

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as exchangeSelectors from '../store/exchange/exchangeSelectors';
+import * as exchangeActions from '../store/exchange/exchangeActions';
 import * as accountBalanceSelectors from '../store/accountBalances/accountBalancesSelectors';
 import StoreState from '../store/storeState';
 import ExchangePanel from './exchangePanel';
-import * as exchangeActions from '../store/exchange/exchangeActions';
 import * as currenciesSelectors from '../store/currencies/currenciesSelectors';
 
 function BaseExchangePanel() {
