@@ -21,8 +21,7 @@ const requestRates = async (
 
   const response = await fetch(url);
   const data = await response.json();
-  console.log(data);
-  const a = Object.keys(data.rates).reduce((result, contraCurrency) => {
+  return Object.keys(data.rates).reduce((result, contraCurrency) => {
     const currencyPair = `${data.base}${contraCurrency}`;
 
     return {
@@ -30,8 +29,6 @@ const requestRates = async (
       [currencyPair]: data.rates[contraCurrency]
     };
   }, {});
-  console.log(a);
-  return a;
 };
 
 const pairIdMap: any = {};
