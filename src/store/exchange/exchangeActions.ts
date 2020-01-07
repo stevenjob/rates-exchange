@@ -80,14 +80,12 @@ const recalculateNonFixedAmount = () => (dispatch: Dispatch, getState: any) => {
     const currencyPair = selectors.getCurrencyPair(state);
     const exchangeRate = ratesSelectors.getRate(state, currencyPair);
     const newAmount = baseAmount * exchangeRate;
-    console.log(baseAmount, currencyPair, exchangeRate, newAmount);
     dispatch(setContraAmount(newAmount));
   } else {
     const contraAmount = selectors.getContraAmount(state);
     const currencyPair = selectors.getCurrencyPair(state);
     const exchangeRate = ratesSelectors.getRate(state, currencyPair);
     const newAmount = contraAmount / exchangeRate;
-    console.log(contraAmount, currencyPair, exchangeRate, newAmount);
     dispatch(setBaseAmount(newAmount));
   }
 };
@@ -95,7 +93,6 @@ const recalculateNonFixedAmount = () => (dispatch: Dispatch, getState: any) => {
 export const onBaseAmountChange = (newBaseAmount: number) => (
   dispatch: any
 ) => {
-  console.log('new base', newBaseAmount);
   dispatch(setBaseAmount(newBaseAmount));
   dispatch(recalculateNonFixedAmount());
 };

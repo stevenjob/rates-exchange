@@ -15,10 +15,6 @@ function ContraExchangePanel(props: ContraExchangePanelProps) {
 
   const selectedCurrency = useSelector(exchangeSelectors.getContraCurrency);
 
-  const shouldHighlightBalance = !useSelector(
-    exchangeSelectors.isContraAmountValid
-  );
-
   const symbol = useSelector(exchangeSelectors.getContraCurrencySymbol);
 
   const balance = useSelector((state: StoreState) =>
@@ -31,7 +27,6 @@ function ContraExchangePanel(props: ContraExchangePanelProps) {
     ...props,
     amount,
     selectedCurrency,
-    shouldHighlightBalance,
     symbol,
     balance,
     onAmountChange: (value: number) => {

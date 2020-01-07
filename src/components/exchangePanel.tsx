@@ -11,7 +11,7 @@ export interface ExchangePanelProps {
   currencies: string[];
   amount: number;
   selectedCurrency: string;
-  shouldHighlightBalance: boolean;
+  shouldHighlightBalance?: boolean;
   symbol: string;
   balance: number;
   onAmountChange: (value: number) => void;
@@ -23,7 +23,7 @@ function ExchangePanel(props: ExchangePanelProps) {
   const {
     amount,
     selectedCurrency,
-    shouldHighlightBalance,
+    shouldHighlightBalance = false,
     symbol,
     balance,
     currencies,
