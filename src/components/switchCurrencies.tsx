@@ -5,7 +5,7 @@ export interface SwitchCurrenciesProps {
 }
 
 function SwitchCurrencies(props: SwitchCurrenciesProps) {
-  return <div>SwitchCurrencies</div>;
+  return <div>></div>;
 }
 
 export default SwitchCurrencies;

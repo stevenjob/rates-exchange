@@ -23,7 +23,18 @@ const exchangeReducer = (
         ...state,
         currencyPair: action.currencyPair
       };
-
+    case ExchangeActionTypes.SET_BASE_AMOUNT: {
+      return {
+        ...state,
+        baseAmount: action.amount
+      };
+    }
+    case ExchangeActionTypes.SET_CONTRA_AMOUNT: {
+      return {
+        ...state,
+        contraAmount: action.amount
+      };
+    }
     default:
       return state;
   }

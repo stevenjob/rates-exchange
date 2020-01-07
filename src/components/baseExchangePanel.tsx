@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as exchangeSelectors from '../store/exchange/exchangeSelectors';
 import * as accountBalanceSelectors from '../store/accountBalances/accountBalancesSelectors';
 import StoreState from '../store/storeState';
 import ExchangePanel from './exchangePanel';
+import * as exchangeActions from '../store/exchange/exchangeActions';
 
 export interface BaseExchangePanelProps {
   currencies: string[];
@@ -24,6 +25,8 @@ function BaseExchangePanel(props: BaseExchangePanelProps) {
     accountBalanceSelectors.getBalance(state, selectedCurrency)
   );
 
+  const dispatch = useDispatch();
+
   const panelProps = {
     ...props,
     amount,
@@ -31,7 +34,9 @@ function BaseExchangePanel(props: BaseExchangePanelProps) {
     shouldHighlightBalance,
     symbol,
     balance,
-    onAmountChange: () => console.log('onAmountChange'),
+    onAmountChange: (value: number) => {
+      dispatch(exchangeActions.onBaseAmountChange(value));
+    },
     onCurrencySelected: () => console.log('onCurrencySelected'),
     onBalanceClick: () => console.log('onBalanceClick')
   };

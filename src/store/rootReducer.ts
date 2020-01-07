@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import exchangeReducer from './exchange/exchangeReducer';
-import ratesReducer from './rates';
+import ratesReducer from './rates/ratesReducer';
 import accountBalancesReducer from './accountBalances/accountBalancesReducer';
 import currenciesReducer from './currencies/currenciesReducer';
 

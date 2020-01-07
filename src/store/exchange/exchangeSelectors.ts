@@ -24,6 +24,10 @@ export const getContraAmount = (state: StoreState): number => {
   return state.exchange.contraAmount;
 };
 
+export const isBaseFixed = (state: StoreState): boolean => {
+  return state.exchange.isBaseFixed;
+};
+
 export const isBaseAmountValid = (state: StoreState): boolean => {
   const amount = getBaseAmount(state);
   const baseCurrency = getBaseCurrency(state);

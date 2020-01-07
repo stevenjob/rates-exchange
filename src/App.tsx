@@ -2,26 +2,26 @@ import React from 'react';
 import Exchange from './components/exchange';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-import { changeCurrencyPair } from './store/exchange/exchangeActions';
+import * as exchangeActions from './store/exchange/exchangeActions';
 
 // mock app setup to populate currencies and account balances
 
 const currencies = {
-  usd: {
+  USD: {
     symbol: '$'
   },
-  gbp: {
+  GBP: {
     symbol: '£'
   },
-  eur: {
+  EUR: {
     symbol: '€'
   }
 };
 
 const accountBalances = {
-  usd: 1000,
-  eur: 1000,
-  gbp: 1000
+  USD: 1000,
+  EUR: 1000,
+  GBP: 1000
 };
 
 const store = configureStore({
@@ -29,8 +29,8 @@ const store = configureStore({
   accountBalances
 });
 
-const currencyPair = 'usdeur';
-store.dispatch(changeCurrencyPair(currencyPair));
+const currencyPair = 'USDEUR';
+store.dispatch(exchangeActions.changeCurrencyPair(currencyPair));
 
 const App: React.FC = () => {
   return (
