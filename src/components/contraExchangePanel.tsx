@@ -5,12 +5,10 @@ import * as accountBalanceSelectors from '../store/accountBalances/accountBalanc
 import StoreState from '../store/storeState';
 import ExchangePanel from './exchangePanel';
 import * as exchangeActions from '../store/exchange/exchangeActions';
+import * as currenciesSelectors from '../store/currencies/currenciesSelectors';
 
-export interface ContraExchangePanelProps {
-  currencies: string[];
-}
-
-function ContraExchangePanel(props: ContraExchangePanelProps) {
+function ContraExchangePanel() {
+  const currencies = useSelector(currenciesSelectors.getCurrenices);
   const amount = useSelector(exchangeSelectors.getContraAmount);
 
   const selectedCurrency = useSelector(exchangeSelectors.getContraCurrency);
@@ -24,7 +22,7 @@ function ContraExchangePanel(props: ContraExchangePanelProps) {
   const dispatch = useDispatch();
 
   const panelProps = {
-    ...props,
+    currencies,
     amount,
     selectedCurrency,
     symbol,

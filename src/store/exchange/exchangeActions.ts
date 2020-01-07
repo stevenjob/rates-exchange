@@ -148,3 +148,20 @@ export const setBaseFixed = () => ({
 export const setContraFixed = () => ({
   type: ExchangeActionTypes.SET_CONTRA_FIXED
 });
+
+export const onSwitchCurrencies = () => (dispatch: any, getState: any) => {
+  const state = getState();
+  const isBaseFixed = selectors.isBaseFixed(state);
+  if (isBaseFixed) {
+    const newContraAmount = selectors.getBaseAmount(state);
+    dispatch(onContraAmountChange(newContraAmount));
+  } else {
+    const newBaseAmount = selectors.getContraAmount(state);
+    dispatch(onBaseAmountChange(newBaseAmount));
+  }
+
+  const baseCurrency = selectors.getBaseCurrency(state);
+  const contraCurrency = selectors.getContraCurrency(state);
+  const reverseCurrencyPair = `${contraCurrency}${baseCurrency}`;
+  dispatch(changeCurrencyPair(reverseCurrencyPair));
+};

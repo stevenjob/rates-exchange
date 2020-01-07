@@ -5,12 +5,10 @@ import * as accountBalanceSelectors from '../store/accountBalances/accountBalanc
 import StoreState from '../store/storeState';
 import ExchangePanel from './exchangePanel';
 import * as exchangeActions from '../store/exchange/exchangeActions';
+import * as currenciesSelectors from '../store/currencies/currenciesSelectors';
 
-export interface BaseExchangePanelProps {
-  currencies: string[];
-}
-
-function BaseExchangePanel(props: BaseExchangePanelProps) {
+function BaseExchangePanel() {
+  const currencies = useSelector(currenciesSelectors.getCurrenices);
   const amount = useSelector(exchangeSelectors.getBaseAmount);
 
   const selectedCurrency = useSelector(exchangeSelectors.getBaseCurrency);
@@ -28,7 +26,7 @@ function BaseExchangePanel(props: BaseExchangePanelProps) {
   const dispatch = useDispatch();
 
   const panelProps = {
-    ...props,
+    currencies,
     amount,
     selectedCurrency,
     shouldHighlightBalance,
