@@ -1,5 +1,5 @@
 import { subscribe, unsubscribe } from '../../ratesSubscription';
-import { updateRates } from '../rates/ratesActions';
+import * as ratesActions from '../rates/ratesActions';
 import StoreState from '../storeState';
 import { Dispatch } from 'redux';
 import * as selectors from './exchangeSelectors';
@@ -71,7 +71,9 @@ export const changeCurrencyPair = (newCurrencyPair: string) => (
   const oldCurrencyPair = selectors.getCurrencyPair(state);
 
   unsubscribe(oldCurrencyPair);
-  subscribe(newCurrencyPair, rates => dispatch(updateRates(rates)));
+  subscribe(newCurrencyPair, rates =>
+    dispatch(ratesActions.updateRates(rates))
+  );
   dispatch(setCurrencyPair(newCurrencyPair));
 };
 

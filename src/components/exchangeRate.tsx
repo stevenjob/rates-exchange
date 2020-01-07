@@ -17,7 +17,7 @@ function ExchangeRate() {
   return (
     <div>
       <i className="material-icons">trending_up</i>
-      {`${baseSymbol}1 = ${contraSymbol}${rate}`}
+      <span data-testid="exchange-rate">{`${baseSymbol}1 = ${contraSymbol}${rate}`}</span>
     </div>
   );
 }
