@@ -5,12 +5,17 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
+import styled from 'styled-components';
 
 export interface CurrencySelectorProps {
   value: string;
   options: string[];
   onChange: (value: string) => void;
 }
+
+const StyledDropdownToggle = styled(DropdownToggle)`
+  width: 70px;
+`;
 
 function CurrencySelector(props: CurrencySelectorProps) {
   const { options, value, onChange } = props;
@@ -25,7 +30,7 @@ function CurrencySelector(props: CurrencySelectorProps) {
       toggle={toggle}
       data-testid="currency-selector"
     >
-      <DropdownToggle caret>{value}</DropdownToggle>
+      <StyledDropdownToggle caret>{value}</StyledDropdownToggle>
       <DropdownMenu>
         <DropdownItem header>Choose Source</DropdownItem>
         {options.map((option, index) => (
