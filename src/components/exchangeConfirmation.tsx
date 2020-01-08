@@ -26,7 +26,7 @@ function ExchangeForm() {
 
   return (
     <>
-      <div>
+      <div data-testid="confirmation-text">
         {`You exchanged ${baseSymbol}${baseAmount} to ${contraSymbol}${contraAmount}`}
       </div>
       <Button onClick={onClick} data-testid="done-button">

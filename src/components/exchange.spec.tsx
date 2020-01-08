@@ -253,5 +253,50 @@ describe('Exchange tests', () => {
     expect(contraAmountInput.value).toBe('1,000.00');
   });
 
-  xtest('can press button to exchange', () => {});
+  test.only('can press button to exchange', () => {
+    mockStore.accountBalances['GBP'] = 2000;
+    const { getAllByTestId, getByTestId } = render(mockStore);
+
+    let baseAmountInput = getAllByTestId('amount-input')[0] as HTMLInputElement;
+    let contraAmountInput = getAllByTestId(
+      'amount-input'
+    )[1] as HTMLInputElement;
+
+    let baseBalance = getAllByTestId('balance')[0];
+    let contraBalance = getAllByTestId('balance')[1];
+
+    expect(baseBalance).toHaveTextContent('£2,000.00');
+    expect(contraBalance).toHaveTextContent('$1,000.00');
+
+    fireEvent.click(contraBalance);
+
+    expect(baseAmountInput.value).toBe('1,115.45');
+    expect(contraAmountInput.value).toBe('1,000.00');
+
+    const exchangeButton = getByTestId('exchange-button');
+
+    fireEvent.click(exchangeButton);
+
+    const confirmText = getByTestId('confirmation-text');
+
+    expect(confirmText).toHaveTextContent(
+      'You exchanged £1,115.45 to $1,000.00'
+    );
+
+    const doneButton = getByTestId('done-button');
+
+    fireEvent.click(doneButton);
+
+    baseBalance = getAllByTestId('balance')[0];
+    contraBalance = getAllByTestId('balance')[1];
+
+    baseAmountInput = getAllByTestId('amount-input')[0] as HTMLInputElement;
+    contraAmountInput = getAllByTestId('amount-input')[1] as HTMLInputElement;
+
+    expect(baseBalance).toHaveTextContent('£884.55');
+    expect(contraBalance).toHaveTextContent('$2,000.00');
+
+    expect(baseAmountInput.value).toBe('0.00');
+    expect(contraAmountInput.value).toBe('0.00');
+  });
 });
