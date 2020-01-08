@@ -30,7 +30,9 @@ function CurrencySelector(props: CurrencySelectorProps) {
       toggle={toggle}
       data-testid="currency-selector"
     >
-      <StyledDropdownToggle caret>{value}</StyledDropdownToggle>
+      <StyledDropdownToggle caret color="primary">
+        {value}
+      </StyledDropdownToggle>
       <DropdownMenu>
         <DropdownItem header>Choose Source</DropdownItem>
         {options.map((option, index) => (

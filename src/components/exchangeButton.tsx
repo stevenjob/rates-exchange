@@ -11,7 +11,13 @@ function ExchangeButton() {
   const disabled = !useSelector(exchangeSelectors.isExchangeEnabled);
 
   return (
-    <Button onClick={onClick} disabled={disabled} data-testid="exchange-button">
+    <Button
+      color="primary"
+      block
+      onClick={onClick}
+      disabled={disabled}
+      data-testid="exchange-button"
+    >
       Exchange
     </Button>
   );

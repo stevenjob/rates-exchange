@@ -12,8 +12,6 @@ const PaddedContainer = styled.div`
 `;
 
 function Exchange() {
-  const dispatch = useDispatch();
-
   const shouldShowConfirmation = useSelector(
     exchangeSelectors.shouldShowConfirmation
   );
@@ -21,7 +19,7 @@ function Exchange() {
   return (
     <PaddedContainer>
       <Container fluid="sm">
-        <header>Exchange</header>
+        <h3>Exchange</h3>
         {shouldShowConfirmation ? <ExchangeConfirmation /> : <ExchangeForm />}
       </Container>
     </PaddedContainer>
