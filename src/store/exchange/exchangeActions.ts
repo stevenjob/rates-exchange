@@ -6,6 +6,7 @@ import * as selectors from './exchangeSelectors';
 import * as ratesSelectors from '../rates/ratesSelectors';
 import * as accountBalancesSelectors from '../accountBalances/accountBalancesSelectors';
 import * as accountBalancesActions from '../accountBalances/accountBalancesActions';
+import * as math from 'mathjs';
 
 export enum ExchangeActionTypes {
   SET_CURRENCY_PAIR = 'SET_CURRENCY_PAIR',
@@ -108,14 +109,22 @@ export const recalculateNonFixedAmount = () => (
     const baseAmount = selectors.getBaseAmount(state);
     const currencyPair = selectors.getCurrencyPair(state);
     const exchangeRate = ratesSelectors.getRate(state, currencyPair);
-    const newAmount = baseAmount * exchangeRate;
-    console.log(baseAmount, currencyPair, exchangeRate, newAmount);
+    const newAmount = Number(
+      math.round(math.multiply(baseAmount, exchangeRate), 2)
+    );
+    console.log(newAmount);
     dispatch(setContraAmount(newAmount));
   } else {
     const contraAmount = selectors.getContraAmount(state);
     const currencyPair = selectors.getCurrencyPair(state);
     const exchangeRate = ratesSelectors.getRate(state, currencyPair);
-    const newAmount = contraAmount / exchangeRate;
+    if (exchangeRate === 0) {
+      dispatch(setBaseAmount(0));
+      return;
+    }
+    const newAmount = Number(
+      math.round(math.divide(contraAmount, exchangeRate), 2)
+    );
     dispatch(setBaseAmount(newAmount));
   }
 };
@@ -184,10 +193,24 @@ export const onExchangeButtonPress = () => (dispatch: any, getState: any) => {
   const contraAmount = selectors.getContraAmount(state);
   const contraCurrency = selectors.getContraCurrency(state);
 
-  const newBaseAccountBalance =
-    accountBalancesSelectors.getBalance(state, baseCurrency) - baseAmount;
-  const newContraAccountBalance =
-    accountBalancesSelectors.getBalance(state, contraCurrency) + contraAmount;
+  const newBaseAccountBalance = Number(
+    math.round(
+      math.subtract(
+        accountBalancesSelectors.getBalance(state, baseCurrency),
+        baseAmount
+      ) as number,
+      2
+    )
+  );
+  const newContraAccountBalance = Number(
+    math.round(
+      math.add(
+        accountBalancesSelectors.getBalance(state, contraCurrency),
+        contraAmount
+      ) as number,
+      2
+    )
+  );
 
   // dispatch() go to confirmation
 

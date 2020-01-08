@@ -222,7 +222,7 @@ describe('Exchange tests', () => {
 
     const baseBalance = getAllByTestId('balance')[0];
 
-    expect(baseBalance).toHaveTextContent('£1000');
+    expect(baseBalance).toHaveTextContent('£1,000.00');
 
     fireEvent.click(baseBalance);
 
@@ -245,11 +245,11 @@ describe('Exchange tests', () => {
 
     const contraBalance = getAllByTestId('balance')[1];
 
-    expect(contraBalance).toHaveTextContent('$1000');
+    expect(contraBalance).toHaveTextContent('$1,000.00');
 
     fireEvent.click(contraBalance);
 
-    expect(baseAmountInput.value).toBe('1,115.44');
+    expect(baseAmountInput.value).toBe('1,115.45');
     expect(contraAmountInput.value).toBe('1,000.00');
   });
 

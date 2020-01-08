@@ -2,6 +2,7 @@ import * as React from 'react';
 import ExchangeRate from './exchangeRate';
 import * as ratesActions from '../store/rates/ratesActions';
 import renderWithRedux from '../testUtils/renderWithRedux';
+import StoreState from '../store/storeState';
 
 test('gets exchange rate data and displays it', () => {
   const mockStore = {
@@ -20,7 +21,10 @@ test('gets exchange rate data and displays it', () => {
       }
     },
     exchange: {
-      currencyPair: 'EURUSD'
+      currencyPair: 'EURUSD',
+      contraAmount: 0,
+      baseAmount: 0,
+      isBaseFixed: true
     }
   };
 
