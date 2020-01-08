@@ -20,8 +20,7 @@ export interface ExchangePanelProps {
 }
 
 const PanelContainer = styled.div`
-  margin-bottom: 50px;
-  margin-top: 50px;
+  margin-bottom: 30px;
 `;
 
 function ExchangePanel(props: ExchangePanelProps) {
