@@ -1,5 +1,6 @@
 import * as React from 'react';
 import formatAmount from '../formatAmount';
+import styled from 'styled-components';
 
 export interface BalanceProps {
   onClick: () => void;
@@ -8,13 +9,24 @@ export interface BalanceProps {
   balance: number;
 }
 
+const span: any = styled.span;
+
+const BalanceContainer = span`
+  cursor: pointer;
+  color: ${(props: any) => (props.shouldHighlight ? 'red' : 'black')};
+`;
+
 function Balance(props: BalanceProps) {
-  const { symbol, balance, onClick } = props;
+  const { shouldHighlight, symbol, balance, onClick } = props;
   return (
-    <div data-testid="balance" onClick={onClick}>
+    <BalanceContainer
+      shouldHighlight={shouldHighlight}
+      data-testid="balance"
+      onClick={onClick}
+    >
       Balance: {symbol}
       {formatAmount(balance)}
-    </div>
+    </BalanceContainer>
   );
 }
 

@@ -57,16 +57,13 @@ function ExchangePanel(props: ExchangePanelProps) {
           </InputGroup>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <Balance
-            onClick={onBalanceClick}
-            shouldHighlight={shouldHighlightBalance}
-            balance={balance}
-            symbol={symbol}
-          />
-        </Col>
-      </Row>
+
+      <Balance
+        onClick={onBalanceClick}
+        shouldHighlight={shouldHighlightBalance}
+        balance={balance}
+        symbol={symbol}
+      />
     </PanelContainer>
   );
 }
