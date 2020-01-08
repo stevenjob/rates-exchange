@@ -6,5 +6,13 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - nm-{{ checksum "package-lock.json" }}
+            - nm- # used if checksum fails
       - run: npm install
+      - save_cache:
+          key: nm-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
       - run: npm test
