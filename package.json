@@ -34,7 +34,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:coverage": "set CI=true && react-scripts test --coverage"
+    "test:coverage": "set CI=true && react-scripts test --coverage",
+    "lint": "eslint src/**/*.{ts,tsx} --max-warnings 5"
   },
   "eslintConfig": {
     "extends": "react-app"
