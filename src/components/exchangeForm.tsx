@@ -5,7 +5,6 @@ import BaseExchangePanel from './baseExchangePanel';
 import ContraExchangePanel from './contraExchangePanel';
 import ExchangeButton from './exchangeButton';
 import * as exchangeActions from '../store/exchange/exchangeActions';
-import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 

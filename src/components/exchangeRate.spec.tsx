@@ -2,7 +2,6 @@ import * as React from 'react';
 import ExchangeRate from './exchangeRate';
 import * as ratesActions from '../store/rates/ratesActions';
 import renderWithRedux from '../testUtils/renderWithRedux';
-import StoreState from '../store/storeState';
 
 test('gets exchange rate data and displays it', () => {
   const mockStore = {

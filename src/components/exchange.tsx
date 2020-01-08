@@ -2,7 +2,7 @@ import * as React from 'react';
 import ExchangeForm from './exchangeForm';
 import ExchangeConfirmation from './exchangeConfirmation';
 import { Container } from 'reactstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import * as exchangeSelectors from '../store/exchange/exchangeSelectors';
 import styled from 'styled-components';
 

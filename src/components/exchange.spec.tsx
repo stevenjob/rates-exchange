@@ -131,7 +131,7 @@ describe('Exchange tests', () => {
 
   test('can switch currencies', () => {
     mockStore.exchange.baseAmount = 2000;
-    const { getByTestId, getAllByTestId, store } = render(mockStore);
+    const { getByTestId, getAllByTestId } = render(mockStore);
 
     const baseAmountInput = getAllByTestId(
       'amount-input'
@@ -182,9 +182,7 @@ describe('Exchange tests', () => {
 
   test('can select new contra currency', () => {
     mockStore.exchange.baseAmount = 2000;
-    const { getByTestId, getAllByTestId, getByText, getAllByText } = render(
-      mockStore
-    );
+    const { getAllByTestId } = render(mockStore);
 
     const baseAmountInput = getAllByTestId(
       'amount-input'
@@ -253,7 +251,7 @@ describe('Exchange tests', () => {
     expect(contraAmountInput.value).toBe('1,000.00');
   });
 
-  test.only('can press button to exchange', () => {
+  test('can press button to exchange', () => {
     mockStore.accountBalances['GBP'] = 2000;
     const { getAllByTestId, getByTestId } = render(mockStore);
 
