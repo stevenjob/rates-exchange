@@ -13,15 +13,10 @@ export enum ExchangeActionTypes {
   SET_BASE_AMOUNT = 'SET_BASE_AMOUNT',
   SET_CONTRA_AMOUNT = 'SET_CONTRA_AMOUNT',
   SET_BASE_FIXED = 'SET_BASE_FIXED',
-  SET_CONTRA_FIXED = 'SET_CONTRA_FIXED'
+  SET_CONTRA_FIXED = 'SET_CONTRA_FIXED',
+  SHOW_CONFIRMATION = 'SHOW_CONFIRMATION',
+  HIDE_CONFIRMATION = 'HIDE_CONFIRMATION'
 }
-
-export interface SetCurrencyPairAction {
-  type: ExchangeActionTypes.SET_CURRENCY_PAIR;
-  currencyPair: string;
-}
-
-export type ExchangeAction = SetCurrencyPairAction | any;
 
 const setCurrencyPair = (currencyPair: string) => ({
   type: ExchangeActionTypes.SET_CURRENCY_PAIR,
@@ -78,26 +73,6 @@ export const changeCurrencyPair = (newCurrencyPair: string) => (
   dispatch(setCurrencyPair(newCurrencyPair));
 };
 
-const changeContraCurrency = (contra: string) => (
-  dispatch: Dispatch,
-  getState: any
-) => {
-  const state: StoreState = getState();
-  const base = selectors.getBaseCurrency(state);
-  const newCurrencyPair = `${base}${contra}`;
-  changeCurrencyPair(newCurrencyPair)(dispatch, getState);
-};
-
-const changeBaseCurrency = (base: string) => (
-  dispatch: Dispatch,
-  getState: any
-) => {
-  const state: StoreState = getState();
-  const contra = selectors.getContraCurrency(state);
-  const newCurrencyPair = `${base}${contra}`;
-  changeCurrencyPair(newCurrencyPair)(dispatch, getState);
-};
-
 export const recalculateNonFixedAmount = () => (
   dispatch: Dispatch,
   getState: any
@@ -112,7 +87,6 @@ export const recalculateNonFixedAmount = () => (
     const newAmount = Number(
       math.round(math.multiply(baseAmount, exchangeRate), 2)
     );
-    console.log(newAmount);
     dispatch(setContraAmount(newAmount));
   } else {
     const contraAmount = selectors.getContraAmount(state);
@@ -163,6 +137,16 @@ export const setContraFixed = () => ({
   type: ExchangeActionTypes.SET_CONTRA_FIXED
 });
 
+export const showConfirmation = (baseAmount: number, contraAmount: number) => ({
+  type: ExchangeActionTypes.SHOW_CONFIRMATION,
+  baseAmount,
+  contraAmount
+});
+
+export const hideConfirmation = () => ({
+  type: ExchangeActionTypes.HIDE_CONFIRMATION
+});
+
 export const onSwitchCurrencies = () => (dispatch: any, getState: any) => {
   const state = getState();
   const isBaseFixed = selectors.isBaseFixed(state);
@@ -180,7 +164,6 @@ export const onSwitchCurrencies = () => (dispatch: any, getState: any) => {
 };
 
 export const onExchangeButtonPress = () => (dispatch: any, getState: any) => {
-  console.log('hello');
   const state = getState();
   const isExchangeEnabled = selectors.isExchangeEnabled(state);
 
@@ -212,7 +195,7 @@ export const onExchangeButtonPress = () => (dispatch: any, getState: any) => {
     )
   );
 
-  // dispatch() go to confirmation
+  dispatch(showConfirmation(baseAmount, contraAmount));
 
   dispatch(
     accountBalancesActions.setAccountBalanceForCurrency(
@@ -227,6 +210,6 @@ export const onExchangeButtonPress = () => (dispatch: any, getState: any) => {
       newContraAccountBalance
     )
   );
-
-  // set amount to 0
+  dispatch(setBaseAmount(0));
+  dispatch(setContraAmount(0));
 };

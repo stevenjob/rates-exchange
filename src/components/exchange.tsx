@@ -1,12 +1,9 @@
 import * as React from 'react';
-import SwitchCurrencies from './switchCurrencies';
-import ExchangeRate from './exchangeRate';
-import BaseExchangePanel from './baseExchangePanel';
-import ContraExchangePanel from './contraExchangePanel';
-import ExchangeButton from './exchangeButton';
-import * as exchangeActions from '../store/exchange/exchangeActions';
-import { Container, Row, Col } from 'reactstrap';
-import { useDispatch } from 'react-redux';
+import ExchangeForm from './exchangeForm';
+import ExchangeConfirmation from './exchangeConfirmation';
+import { Container } from 'reactstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import * as exchangeSelectors from '../store/exchange/exchangeSelectors';
 import styled from 'styled-components';
 
 const PaddedContainer = styled.div`
@@ -16,23 +13,16 @@ const PaddedContainer = styled.div`
 
 function Exchange() {
   const dispatch = useDispatch();
+
+  const shouldShowConfirmation = useSelector(
+    exchangeSelectors.shouldShowConfirmation
+  );
+
   return (
     <PaddedContainer>
       <Container fluid="sm">
         <header>Exchange</header>
-        <BaseExchangePanel />
-        <Row>
-          <Col>
-            <SwitchCurrencies
-              onClick={() => dispatch(exchangeActions.onSwitchCurrencies())}
-            />
-          </Col>
-          <Col>
-            <ExchangeRate />
-          </Col>
-        </Row>
-        <ContraExchangePanel />
-        <ExchangeButton />
+        {shouldShowConfirmation ? <ExchangeConfirmation /> : <ExchangeForm />}
       </Container>
     </PaddedContainer>
   );

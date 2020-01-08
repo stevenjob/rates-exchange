@@ -1,10 +1,13 @@
-import { ExchangeAction, ExchangeActionTypes } from './exchangeActions';
+import { ExchangeActionTypes } from './exchangeActions';
 
 export interface ExchangeState {
   currencyPair?: string;
   baseAmount: number;
   contraAmount: number;
   isBaseFixed: boolean;
+  shouldShowConfirmation?: boolean;
+  confirmationBaseAmount?: number;
+  confirmationContraAmount?: number;
 }
 
 const initialState = {
@@ -13,10 +16,7 @@ const initialState = {
   isBaseFixed: true
 };
 
-const exchangeReducer = (
-  state: ExchangeState = initialState,
-  action: ExchangeAction
-) => {
+const exchangeReducer = (state: ExchangeState = initialState, action: any) => {
   switch (action.type) {
     case ExchangeActionTypes.SET_CURRENCY_PAIR:
       return {
@@ -45,6 +45,22 @@ const exchangeReducer = (
       return {
         ...state,
         isBaseFixed: false
+      };
+    }
+    case ExchangeActionTypes.SHOW_CONFIRMATION: {
+      return {
+        ...state,
+        shouldShowConfirmation: true,
+        confirmationBaseAmount: action.baseAmount,
+        confirmationContraAmount: action.contraAmount
+      };
+    }
+    case ExchangeActionTypes.HIDE_CONFIRMATION: {
+      return {
+        ...state,
+        shouldShowConfirmation: false,
+        confirmationBaseAmount: null,
+        confirmationContraAmount: null
       };
     }
     default:

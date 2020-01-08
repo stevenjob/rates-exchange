@@ -66,7 +66,7 @@ class AmountInput extends React.Component<
             this.finput.setRawValue(value);
           }
         }}
-        onChange={e => {
+        onKeyDown={e => {
           onChange(this.finput.rawValue);
         }}
         onBlur={e => {

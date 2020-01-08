@@ -1,4 +1,5 @@
 import * as React from 'react';
+import formatAmount from '../formatAmount';
 
 export interface BalanceProps {
   onClick: () => void;
@@ -7,16 +8,12 @@ export interface BalanceProps {
   balance: number;
 }
 
-const formatBalance = (balance: number) => {
-  return balance.toLocaleString('en-US', { minimumFractionDigits: 2 });
-};
-
 function Balance(props: BalanceProps) {
   const { symbol, balance, onClick } = props;
   return (
     <div data-testid="balance" onClick={onClick}>
       Balance: {symbol}
-      {formatBalance(balance)}
+      {formatAmount(balance)}
     </div>
   );
 }

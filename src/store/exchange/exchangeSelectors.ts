@@ -48,3 +48,15 @@ export const getContraCurrencySymbol = (state: StoreState): string => {
   const currency = getContraCurrency(state);
   return currenciesSelectors.getSymbol(state, currency);
 };
+
+export const shouldShowConfirmation = (state: StoreState): boolean => {
+  return Boolean(state.exchange.shouldShowConfirmation);
+};
+
+export const getConfirmationBaseAmount = (state: StoreState): number => {
+  return state.exchange.confirmationBaseAmount || 0;
+};
+
+export const getConfirmationContraAmount = (state: StoreState): number => {
+  return state.exchange.confirmationContraAmount || 0;
+};
