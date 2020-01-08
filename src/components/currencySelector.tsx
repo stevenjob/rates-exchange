@@ -20,12 +20,18 @@ function CurrencySelector(props: CurrencySelectorProps) {
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
   return (
-    <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+    <Dropdown
+      isOpen={dropdownOpen}
+      toggle={toggle}
+      data-testid="currency-selector"
+    >
       <DropdownToggle caret>{value}</DropdownToggle>
       <DropdownMenu>
         <DropdownItem header>Choose Source</DropdownItem>
-        {options.map(option => (
-          <DropdownItem onClick={() => onChange(option)}>{option}</DropdownItem>
+        {options.map((option, index) => (
+          <DropdownItem key={index} onClick={() => onChange(option)}>
+            {option}
+          </DropdownItem>
         ))}
       </DropdownMenu>
     </Dropdown>

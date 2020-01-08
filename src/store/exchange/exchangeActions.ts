@@ -35,7 +35,6 @@ export const onBaseCurrencyChange = (newBaseCurrency: string) => (
   const contraCurrency = selectors.getContraCurrency(state);
 
   dispatch(setBaseFixed());
-  dispatch(recalculateNonFixedAmount());
 
   let newContraCurrency = contraCurrency;
   if (contraCurrency === newBaseCurrency) {
@@ -43,6 +42,7 @@ export const onBaseCurrencyChange = (newBaseCurrency: string) => (
   }
 
   dispatch(changeCurrencyPair(`${newBaseCurrency}${newContraCurrency}`));
+  dispatch(recalculateNonFixedAmount());
 };
 
 export const onContraCurrencyChange = (newContraCurrency: string) => (
@@ -53,7 +53,6 @@ export const onContraCurrencyChange = (newContraCurrency: string) => (
   const baseCurrency = selectors.getBaseCurrency(state);
 
   dispatch(setContraFixed());
-  dispatch(recalculateNonFixedAmount());
 
   let newBaseCurrency = baseCurrency;
   if (baseCurrency === newContraCurrency) {
@@ -61,6 +60,7 @@ export const onContraCurrencyChange = (newContraCurrency: string) => (
   }
 
   dispatch(changeCurrencyPair(`${newBaseCurrency}${newContraCurrency}`));
+  dispatch(recalculateNonFixedAmount());
 };
 
 export const changeCurrencyPair = (newCurrencyPair: string) => (
@@ -109,6 +109,7 @@ export const recalculateNonFixedAmount = () => (
     const currencyPair = selectors.getCurrencyPair(state);
     const exchangeRate = ratesSelectors.getRate(state, currencyPair);
     const newAmount = baseAmount * exchangeRate;
+    console.log(baseAmount, currencyPair, exchangeRate, newAmount);
     dispatch(setContraAmount(newAmount));
   } else {
     const contraAmount = selectors.getContraAmount(state);
@@ -156,6 +157,10 @@ export const setContraFixed = () => ({
 export const onSwitchCurrencies = () => (dispatch: any, getState: any) => {
   const state = getState();
   const isBaseFixed = selectors.isBaseFixed(state);
+  const baseCurrency = selectors.getBaseCurrency(state);
+  const contraCurrency = selectors.getContraCurrency(state);
+  const reverseCurrencyPair = `${contraCurrency}${baseCurrency}`;
+  dispatch(changeCurrencyPair(reverseCurrencyPair));
   if (isBaseFixed) {
     const newContraAmount = selectors.getBaseAmount(state);
     dispatch(onContraAmountChange(newContraAmount));
@@ -163,11 +168,6 @@ export const onSwitchCurrencies = () => (dispatch: any, getState: any) => {
     const newBaseAmount = selectors.getContraAmount(state);
     dispatch(onBaseAmountChange(newBaseAmount));
   }
-
-  const baseCurrency = selectors.getBaseCurrency(state);
-  const contraCurrency = selectors.getContraCurrency(state);
-  const reverseCurrencyPair = `${contraCurrency}${baseCurrency}`;
-  dispatch(changeCurrencyPair(reverseCurrencyPair));
 };
 
 export const onExchangeButtonPress = () => (dispatch: any, getState: any) => {

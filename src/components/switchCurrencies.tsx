@@ -7,7 +7,7 @@ export interface SwitchCurrenciesProps {
 
 function SwitchCurrencies(props: SwitchCurrenciesProps) {
   return (
-    <Button onClick={props.onClick}>
+    <Button data-testid="switch-currencies" onClick={props.onClick}>
       <i className="material-icons">swap_vert</i>
     </Button>
   );

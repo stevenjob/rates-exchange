@@ -11,6 +11,9 @@
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/redux-thunk": "^2.1.0",
+    "@types/react-redux": "^7.1.5",
+    "@types/reactstrap": "^8.2.0",
+    "@types/styled-components": "^4.4.1",
     "bootstrap": "^4.4.1",
     "finput": "^2.0.1",
     "material-design-icons": "^3.0.1",
@@ -28,7 +31,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:coverage": "set CI=true && react-scripts test --coverage"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,9 +49,14 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/react-redux": "^7.1.5",
-    "@types/reactstrap": "^8.2.0",
-    "@types/styled-components": "^4.4.1"
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/finput.+\\.ts$"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{ts,tsx}",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ]
   }
 }

@@ -9,7 +9,7 @@ export interface BalanceProps {
 function Balance(props: BalanceProps) {
   const { symbol, balance, onClick } = props;
   return (
-    <div onClick={onClick}>
+    <div data-testid="balance" onClick={onClick}>
       Balance: {symbol}
       {balance}
     </div>

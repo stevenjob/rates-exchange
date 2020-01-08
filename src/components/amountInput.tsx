@@ -1,7 +1,7 @@
 import * as React from 'react';
-import finput from 'finput';
 import styled from 'styled-components';
 import { Input } from 'reactstrap';
+import finput from 'finput';
 
 export interface AmountInputProps {
   value: number;
@@ -45,7 +45,7 @@ class AmountInput extends React.Component<
     };
   }
 
-  componentWillReceiveProps(nextProps: { value: number }) {
+  UNSAFE_componentWillReceiveProps(nextProps: { value: number }) {
     const { value } = nextProps;
 
     this.setState({
@@ -59,13 +59,14 @@ class AmountInput extends React.Component<
 
     return (
       <Input
+        data-testid="amount-input"
         innerRef={input => {
           this.input = input as any;
           if (this.input && externalUpdate) {
             this.finput.setRawValue(value);
           }
         }}
-        onKeyDown={e => {
+        onChange={e => {
           onChange(this.finput.rawValue);
         }}
         onBlur={e => {

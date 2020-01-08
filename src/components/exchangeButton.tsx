@@ -4,17 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as exchangeSelectors from '../store/exchange/exchangeSelectors';
 import * as exchangeActions from '../store/exchange/exchangeActions';
 
-function Balance() {
+function ExchangeButton() {
   const dispatch = useDispatch();
   const onClick = () => dispatch(exchangeActions.onExchangeButtonPress());
 
   const disabled = !useSelector(exchangeSelectors.isExchangeEnabled);
 
   return (
-    <Button onClick={onClick} disabled={disabled}>
+    <Button onClick={onClick} disabled={disabled} data-testid="exchange-button">
       Exchange
     </Button>
   );
 }
 
-export default Balance;
+export default ExchangeButton;
