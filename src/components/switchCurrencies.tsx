@@ -9,6 +9,7 @@ const SwitchButton = styled.div`
   border: #ccc solid 1px;
   border-radius: 50%;
   cursor: pointer;
+  width: 26px;
 `;
 
 function SwitchCurrencies(props: SwitchCurrenciesProps) {
