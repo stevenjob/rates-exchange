@@ -1,4 +1,9 @@
-## Rates exchange app https://stevenjob.github.io/rates-exchange/
+# Rates exchange app 
+See it deployed: https://stevenjob.github.io/rates-exchange/
+
+[![CircleCI](https://circleci.com/gh/stevenjob/rates-exchange/tree/master.svg?style=svg)](https://circleci.com/gh/stevenjob/rates-exchange/tree/master)
+
+## Tech
 
 - react, redux and typescript
 - bootstrap, styled-components
