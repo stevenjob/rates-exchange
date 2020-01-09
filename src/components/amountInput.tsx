@@ -1,100 +1,75 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Input } from 'reactstrap';
-import finput from 'finput';
+import MaskedInput from 'react-text-mask';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 export interface AmountInputProps {
   value: number;
-  onChange?: (value: number) => void;
-  onBlur?: (value: number) => void;
-  onFocus?: (value: number) => void;
-}
-
-interface State {
-  externalUpdate: boolean;
-  initialUpdate: boolean;
-}
-
-interface DefaultProps {
   onChange: (value: number) => void;
-  onBlur: (value: number) => void;
-  onFocus: (value: number) => void;
+  onFocus: () => void;
 }
 
-const options = {
-  range: 'POSITIVE'
+const defaultMaskOptions = {
+  prefix: '',
+  suffix: '',
+  includeThousandsSeparator: true,
+  thousandsSeparatorSymbol: ',',
+  allowDecimal: true,
+  decimalSymbol: '.',
+  decimalLimit: 2,
+  integerLimit: 7,
+  allowNegative: false,
+  allowLeadingZeroes: false
 };
 
-class AmountInput extends React.Component<
-  AmountInputProps & DefaultProps,
-  State
-> {
-  finput: any;
-  input: any;
-  static defaultProps: {
-    onChange: () => void;
-    onBlur: () => void;
-    onFocus: () => void;
-  };
+const createAmountInputMask = (maskOptions: any) => {
+  const decimalsRegex = /\.([0-9]{1,2})/;
+  const numberMask = createNumberMask({
+    includeThousandsSeparator: true,
+    allowDecimal: true,
+    requireDecimal: true,
+    allowLeadingZeroes: false,
+    ...maskOptions
+  });
 
-  constructor(props: Readonly<AmountInputProps & DefaultProps>) {
-    super(props);
-    this.state = {
-      externalUpdate: false,
-      initialUpdate: !!props.value
-    };
-  }
+  return (rawValue: any) => {
+    const mask = numberMask(rawValue);
+    const result = decimalsRegex.exec(rawValue);
 
-  UNSAFE_componentWillReceiveProps(nextProps: { value: number }) {
-    const { value } = nextProps;
-
-    this.setState({
-      externalUpdate: value !== this.finput.rawValue
-    });
-  }
-
-  render() {
-    const { onFocus, onBlur, onChange, value, ...others } = this.props;
-    const { externalUpdate } = this.state;
-
-    return (
-      <Input
-        data-testid="amount-input"
-        innerRef={input => {
-          this.input = input as any;
-          if (this.input && externalUpdate) {
-            this.finput.setRawValue(value);
-          }
-        }}
-        onKeyDown={e => {
-          onChange(this.finput.rawValue);
-        }}
-        onBlur={e => {
-          onBlur(this.finput.rawValue);
-        }}
-        onFocus={e => {
-          onFocus(this.finput.rawValue);
-        }}
-        {...others}
-      />
-    );
-  }
-
-  componentDidMount() {
-    const { value } = this.props;
-    const { initialUpdate } = this.state;
-
-    this.finput = (finput as any)(this.input, options);
-    if (initialUpdate) {
-      this.finput.setRawValue(value);
+    if (result && result[1].length < 2) {
+      mask.push('0');
+    } else if (!result) {
+      mask.push('0');
+      mask.push('0');
     }
-  }
-}
 
-AmountInput.defaultProps = {
-  onChange: () => {},
-  onBlur: () => {},
-  onFocus: () => {}
+    return mask;
+  };
+};
+
+const AmountInput = (props: AmountInputProps) => {
+  const currencyMask = createAmountInputMask({
+    ...defaultMaskOptions
+  });
+
+  return (
+    <MaskedInput
+      mask={currencyMask}
+      {...props}
+      onChange={e => {
+        const newValue = Number(
+          e.target.value.replace(/,/g, '').replace(/_/g, '')
+        );
+        if (!isNaN(newValue)) {
+          props.onChange(newValue);
+        }
+      }}
+      render={(ref, renderProps) => (
+        <Input data-testid="amount-input" innerRef={ref} {...renderProps} />
+      )}
+    />
+  );
 };
 
 const StyledAmountInput = styled(AmountInput)`

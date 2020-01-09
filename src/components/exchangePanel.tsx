@@ -14,7 +14,7 @@ export interface ExchangePanelProps {
   symbol: string;
   balance: number;
   onAmountChange: (value: number) => void;
-  onAmountFocus: (value: number) => void;
+  onAmountFocus: () => void;
   onCurrencySelected: (currencyName: string) => void;
   onBalanceClick: () => void;
 }

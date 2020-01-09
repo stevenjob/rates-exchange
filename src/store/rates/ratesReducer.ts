@@ -6,7 +6,6 @@ export interface RatesState {
 
 const ratesReducer = (state: RatesState = {}, action: RatesAction) => {
   if (action.type === RatesActionTypes.SET_RATES) {
-    console.log(state, action);
     return {
       ...state,
       ...action.rates
