@@ -28,7 +28,7 @@ get a key from https://openexchangerates.org/ and add to .env.local
 
 - There is no handling of errors or loading or setup for the rates, if a request for rates is slow or fails the component will not work correctly.
 
-- The app is not fully tested, although most of the component tests try to cover the main flow.
+- The app is not fully tested, although most of the component tests try to cover the main flow (see `exchange.spec.ts` for lots of tests).
 
 - Used typescript but i cut some corners (using `any`) as i did not want to spend too much time correcting type definitions.
 
