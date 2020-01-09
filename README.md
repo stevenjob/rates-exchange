@@ -23,4 +23,6 @@ Uses text-mask for input validation
 
 - The app is not fully tested, although most of the component tests try to cover the main flow.
 
+- Used typescript but i cut some corners (using `any`) as i did not want to spend too much time correcting type definitions.
+
 - I expect some edge cases that were not covered like very large numbers
