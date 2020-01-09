@@ -16,7 +16,9 @@ Setup with 3 mock pockets of 1000 of GBP, USD and EUR
 
 Uses text-mask for input validation
 
-## Steps to run
+## Steps to run locally
+
+get a key from https://openexchangerates.org/ and add to .env.local
 
 `npm install`
 
