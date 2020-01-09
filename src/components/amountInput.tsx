@@ -66,7 +66,12 @@ const AmountInput = (props: AmountInputProps) => {
         }
       }}
       render={(ref, renderProps) => (
-        <Input data-testid="amount-input" innerRef={ref} {...renderProps} />
+        <Input
+          data-testid="amount-input"
+          inputMode="numeric"
+          innerRef={ref}
+          {...renderProps}
+        />
       )}
     />
   );
