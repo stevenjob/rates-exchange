@@ -4,12 +4,12 @@ export enum RatesActionTypes {
   SET_RATES = 'SET_RATES'
 }
 
-export interface UpdateRatesAction {
+export interface SetRatesAction {
   type: RatesActionTypes.SET_RATES;
-  rates: { string: number };
+  rates: { [rate: string]: number };
 }
 
-export type RatesAction = UpdateRatesAction;
+export type RatesAction = SetRatesAction;
 
 export const updateRates = (rates: { [rate: string]: number }) => (
   dispatch: any
@@ -18,7 +18,7 @@ export const updateRates = (rates: { [rate: string]: number }) => (
   dispatch(exchangeActions.recalculateNonFixedAmount());
 };
 
-const setRates = (rates: { [rate: string]: number }) => ({
+const setRates = (rates: { [rate: string]: number }): SetRatesAction => ({
   type: RatesActionTypes.SET_RATES,
   rates
 });

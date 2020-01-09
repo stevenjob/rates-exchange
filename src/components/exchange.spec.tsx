@@ -92,18 +92,27 @@ describe('Exchange tests', () => {
   });
 
   test('balance is highlighted when amount is greater than balance', () => {
-    mockStore.exchange.baseAmount = 2000;
-
     const { getByTestId, getAllByTestId } = render(mockStore);
+
+    const baseBalance = getAllByTestId('balance')[0];
+
+    let style = window.getComputedStyle(baseBalance);
+    expect(style.color).toBe('black');
 
     const baseAmountInput = getAllByTestId(
       'amount-input'
     )[0] as HTMLInputElement;
+
+    expect(baseAmountInput.value).toBe('0.00');
+
+    fireEvent.change(baseAmountInput, { target: { value: '2,000.00' } });
+
     expect(baseAmountInput.value).toBe('2,000.00');
 
     expect(getByTestId('exchange-button')).toBeDisabled();
 
-    // TODO assert balance
+    style = window.getComputedStyle(baseBalance);
+    expect(style.color).toBe('red');
   });
 
   test('recalculates non-fixed amount when rate updates', () => {
@@ -146,9 +155,17 @@ describe('Exchange tests', () => {
     expect(contraCurrencySelector).toHaveTextContent('USD');
     expect(baseAmountInput.value).toBe('2,000.00');
     expect(contraAmountInput.value).toBe('1,793.00');
-    // TODO check balances swap
+
+    const baseBalance = getAllByTestId('balance')[0];
+    const contraBalance = getAllByTestId('balance')[1];
+
+    expect(baseBalance).toHaveTextContent('£1,000.00');
+    expect(contraBalance).toHaveTextContent('$1,000.00');
 
     fireEvent.click(getByTestId('switch-currencies'));
+
+    expect(baseBalance).toHaveTextContent('$1,000.00');
+    expect(contraBalance).toHaveTextContent('£1,000.00');
 
     expect(baseCurrencySelector).toHaveTextContent('USD');
     expect(contraCurrencySelector).toHaveTextContent('GBP');

@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'material-design-icons/iconfont/material-icons.css';
 
 // mock app setup to populate currencies and account balances
-
 const currencies = {
   USD: {
     symbol: '$'

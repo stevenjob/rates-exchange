@@ -6,7 +6,7 @@ export const setAccountBalanceForCurrency = (
   currency: string,
   balance: number
 ) => ({
-  type: 'SET_ACCOUNT_BALANCE',
+  type: AccountBalanceActionTypes.SET_ACCOUNT_BALANCE,
   currency,
   balance
 });

@@ -9,6 +9,6 @@ export const getSymbol = (state: StoreState, currencyName: string): string => {
   return getCurrencyData(state, currencyName).symbol || '?';
 };
 
-export const getCurrenices = (state: StoreState) => {
+export const getCurrenices = (state: StoreState): string[] => {
   return Object.keys(state.currencies);
 };
