@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/rates-exchange/static/css/main.27548ef9.chunk.css",
-    "main.js": "/rates-exchange/static/js/main.6808eabc.chunk.js",
-    "main.js.map": "/rates-exchange/static/js/main.6808eabc.chunk.js.map",
+    "main.js": "/rates-exchange/static/js/main.dc9f0ec3.chunk.js",
+    "main.js.map": "/rates-exchange/static/js/main.dc9f0ec3.chunk.js.map",
     "runtime-main.js": "/rates-exchange/static/js/runtime-main.497ff448.js",
     "runtime-main.js.map": "/rates-exchange/static/js/runtime-main.497ff448.js.map",
     "static/css/2.ffaacef9.chunk.css": "/rates-exchange/static/css/2.ffaacef9.chunk.css",
     "static/js/2.1d0790d5.chunk.js": "/rates-exchange/static/js/2.1d0790d5.chunk.js",
     "static/js/2.1d0790d5.chunk.js.map": "/rates-exchange/static/js/2.1d0790d5.chunk.js.map",
     "index.html": "/rates-exchange/index.html",
-    "precache-manifest.44a0d863baf1139196f21cf51b9fd092.js": "/rates-exchange/precache-manifest.44a0d863baf1139196f21cf51b9fd092.js",
+    "precache-manifest.3b46af91955090e2fe326266b9588187.js": "/rates-exchange/precache-manifest.3b46af91955090e2fe326266b9588187.js",
     "service-worker.js": "/rates-exchange/service-worker.js",
     "static/css/2.ffaacef9.chunk.css.map": "/rates-exchange/static/css/2.ffaacef9.chunk.css.map",
     "static/css/main.27548ef9.chunk.css.map": "/rates-exchange/static/css/main.27548ef9.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.ffaacef9.chunk.css",
     "static/js/2.1d0790d5.chunk.js",
     "static/css/main.27548ef9.chunk.css",
-    "static/js/main.6808eabc.chunk.js"
+    "static/js/main.dc9f0ec3.chunk.js"
   ]
 }

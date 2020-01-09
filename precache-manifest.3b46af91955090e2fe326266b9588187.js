@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d1b7618614ab8020f42b471d84931024",
+    "revision": "01ac5837331900a61afa78a412156635",
     "url": "/rates-exchange/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rates-exchange/static/css/2.ffaacef9.chunk.css"
   },
   {
-    "revision": "d11d5d56c23e64dedbb5",
+    "revision": "df74ab1e09ba3af15116",
     "url": "/rates-exchange/static/css/main.27548ef9.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rates-exchange/static/js/2.1d0790d5.chunk.js.LICENSE"
   },
   {
-    "revision": "d11d5d56c23e64dedbb5",
-    "url": "/rates-exchange/static/js/main.6808eabc.chunk.js"
+    "revision": "df74ab1e09ba3af15116",
+    "url": "/rates-exchange/static/js/main.dc9f0ec3.chunk.js"
   },
   {
     "revision": "e0cbd137e71cf1e929be",
