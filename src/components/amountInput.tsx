@@ -53,10 +53,18 @@ const AmountInput = (props: AmountInputProps) => {
     ...defaultMaskOptions
   });
 
+  const inputEl = React.useRef(null);
+
   return (
     <MaskedInput
       mask={currencyMask}
       {...props}
+      ref={inputEl}
+      onClick={() => {
+        if (props.value === 0 && inputEl) {
+          (inputEl.current as any).inputElement.select();
+        }
+      }}
       onChange={e => {
         const newValue = Number(
           e.target.value.replace(/,/g, '').replace(/_/g, '')
