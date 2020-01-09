@@ -2,6 +2,7 @@
   "name": "rates-exchange",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://stevenjob.github.io/rates-exchange/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
@@ -32,6 +33,8 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build --message \"[skip ci] Update deployment\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -60,5 +63,8 @@
       "!**/node_modules/**",
       "!**/coverage/**"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
   }
 }
