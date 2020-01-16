@@ -32,4 +32,4 @@ get a key from https://openexchangerates.org/ and add to .env.local
 
 - Used typescript but i cut some corners (using `any`) as i did not want to spend too much time correcting type definitions.
 
-- I expect some edge cases that were not covered like very large numbers
+- I expect some edge cases that were not covered like very large numbers or very small numbers e.g. 0.01
